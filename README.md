@@ -1,3 +1,3 @@
-# 2420 as 2 part 1
+# 2420 as 3 part 2
 
 see assignment instructions for more details

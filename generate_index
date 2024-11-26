@@ -10,6 +10,7 @@ KERNEL_RELEASE=$(uname -r)
 OS_NAME=$(grep '^PRETTY_NAME' /etc/os-release | cut -d '=' -f2 | tr -d '"')
 DATE=$(date +"%d/%m/%Y")
 PACKAGE_COUNT=$(pacman -Q | wc -l)
+PUBLIC_IP_ADRESS=$(ip -4 a show dev eth0 | grep inet | awk '{print $2}' | cut -d/ -f1)
 OUTPUT_DIR="/var/lib/webgen/HTML"
 OUTPUT_FILE="$OUTPUT_DIR/index.html"
 
@@ -34,6 +35,7 @@ cat <<EOF > "$OUTPUT_FILE"
     <p><strong>Operating System:</strong> $OS_NAME</p>
     <p><strong>Date:</strong> $DATE</p>
     <p><strong>Number of Installed Packages:</strong> $PACKAGE_COUNT</p>
+    <p><strong>Public IP address of server:</strong> $PUBLIC_IP_ADRESS</p>
 </body>
 </html>
 EOF
