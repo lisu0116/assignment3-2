@@ -55,7 +55,7 @@ sudo touch /var/lib/webgen/documents/<file-name2>
 ```
 
 After you did the steps above, the webgen directory structure with tree command should be the same below
-![webgen directory structure](2420-as3-p2-start/assets/webgen-structure.png)
+![webgen directory structure](assets/webgen-structure.png)
 
 ### Set up the service and timer files
 
