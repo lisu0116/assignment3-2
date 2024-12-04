@@ -41,8 +41,28 @@ sudo useradd -r -m -d /var/lib/webgen -s /usr/bin/nologin webgen
 
 ```bash
 sudo mkdir -p /var/lib/webgen/bin /var/lib/webgen/HTML /var/lib/webgen/documents
-# making two directories same as the provided directory structure
+# making three directories same as the provided directory structure
 # -p: pass to make the directory if the directory already exists
+```
+In /var/lib/webgen directory, you need to make some files
+
+```bash
+sudo touch /var/lib/webgen/HTML/index.html
+sudo touch /var/lib/webgen/documents/<file-name1>
+sudo touch /var/lib/webgen/documents/<file-name2>
+# making the files above
+# make sure that you already have the generate_index file in bin directory
+```
+
+After you did the steps above, the webgen directory structure with tree command should be the same below
+![webgen directory structure](2420-as3-p2-start/assets/webgen-structure.png)
+
+### Set up the service and timer files
+
+
+sudo nvim /etc/systemd/system/generate-index.service
+sudo nvim /etc/systemd/system/generate-index.timer
+# open the file with text editor and insert the contents
 
 sudo chown -R webgen:webgen /var/lib/webgen
 # change the directory owner and group to webgen
