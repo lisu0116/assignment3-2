@@ -59,9 +59,9 @@ sudo touch /var/lib/webgen/documents/<file-name2>
 # make sure that you already have the generate_index file in bin directory
 ```
 
-After you did the steps above, the webgen directory structure with tree command should be the same below
+After you did the steps above, the webgen directory structure with tree command should be the same below  
 
-![webgen directory structure](assets/webgen-structure.png)
+![webgen directory structure](assets/webgen-structure.png)  
 
 ### Set up the service and timer files
 
@@ -154,6 +154,19 @@ sudo ufw allow http # allow incoming HTTP traffic (port 80)
 sudo ufw enable # enable the UFW firewall with the rules above
 sudo ufw status verbose # check the status of UFW 
 ```
+
+### Example
+
+Once you are done with this instruction. When you go to your load balancer ip address, it should look like the picture below  
+
+![webgen directory structure](assets/load-balancer-eg.png)  
+
+When you refresh the page, the Public IP address of server part will be changed
+
+With http://load-balancer-ip/documents, this will show the inside of documents directory and what files you can download
+
+![webgen directory structure](assets/load-balancer-documents.png)  
+
 
 #### Additional command line
 
