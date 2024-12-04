@@ -2,7 +2,7 @@
 
 ## Set up two new servers
 
-This part has three main part: create a new user, set up nginx, set up firewall rule, and create load balancer
+This part has four main part: create a new user, set up nginx, set up firewall rule, and create load balancer
 
 - nginx: doing serving static content (e.g., HTML, CSS, JS) or act as a reverse proxy for backend servers
 - ufw: doing seting up firewall rules, allowing only specific ports while blocking others
