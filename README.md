@@ -126,11 +126,12 @@ you needto check the main nginx.conf file
 include /etc/nginx/sites-enabled/webgen.conf;
 # if it's not there, add it to nginx.conf
 # make sure this command line should be in http block section
-# server block section always be in http block section
-# webgen.conf has server block content, so it should in http block
-# we made the webgen.conf in sites-available dir, but we also made symlink in sites-enabled dir
-# so it should be /etc/nginx/sites-enabled/webgen.conf
 ```
+
+Server block section always be in nginx.conf http block section 
+Webgen.conf has server block content, so it should in http block
+We made the webgen.conf in sites-available dir, but we also made symlink in sites-enabled dir
+So it should be /etc/nginx/sites-enabled/webgen.conf
 
 ```bash
 sudo nginx -t # test the configuration
@@ -154,38 +155,20 @@ sudo ufw enable # enable the UFW firewall with the rules above
 sudo ufw status verbose # check the status of UFW 
 ```
 
-#### Answer the question
-1. The benefit of creating a system user for this task rather than using a regular user or root.
-There are three benefits: enhanced security, separation of concerns and principle of least privilege.
+#### Additional command line
 
-- Enhanced security: since system user has limit privillege, it can reduce the system wide damage.
-- Separation of concerns: system user isolates tasks so it makes logs and processes easier to manage.
-- Principle of least privilege: system user minimizes the attack surface by having only necessary permissions.
-
-2. Verifying timer, check logs and service execution
+```bash
+sudo systemctl enable gernerate-index.timer
+sudo systemctl enable gernerate-index.service
+sudo systemctl start gernerate-index.timer
+sudo systemctl start gernerate-index.service
+```
 
 ```bash
 sudo systemctl status generate-index.timer # check timer status
 sudo systemctl status generate-index.service # check service status
 sudo journalctl -u generate-index.service 
 # check logs, use --since or --until; these filter the specific period
-```
-
-3. Importance of using separate block file
-
-- Avoiding errors: modifying the main nginx.conf directly increases the risk of breaking entire server
-- Ease of management: individual server block files can be enabled or disabled with symbolic links, simplifying maintenance.
-
-4. Check nginx status and test nginx configuration
-
-```bash
-sudo systemctl status nginx # check nginx status
-sudo nginx -t # test nginx configuration
-```
-
-5. Check firewall status
-```bash
-sudo ufw status verbose # check firewall status
 ```
 
 
