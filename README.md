@@ -159,9 +159,10 @@ sudo ufw status verbose # check the status of UFW
 
 Once you are done with this instruction. When you go to your load balancer ip address, it should look like the picture below  
 
+When you refresh the page, the Public IP address of server part will be changed
+
 ![webgen directory structure](assets/load-balancer-eg.png)  
 
-When you refresh the page, the Public IP address of server part will be changed
 
 With http://load-balancer-ip/documents, this will show the inside of documents directory and what files you can download
 
