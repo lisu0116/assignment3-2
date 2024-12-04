@@ -11,7 +11,7 @@ This part has four main part: create a new user, set up nginx, set up firewall r
 ### Create two new servers on DigitalOcean
 
 1. Create two new droplets on DigitalOcean running Arch Linux the same as previous process
-2. Make sure that making droplets with tag "web" - the tag "web" will be used for load balancer
+2. Make sure that making droplets with tag "web" - the tag "web" will be used for load balancer 
 
 ### Create load balancer
 
@@ -28,7 +28,19 @@ This part has four main part: create a new user, set up nginx, set up firewall r
 
 ### Create a new user account
 
-Since you have two new servers, you need to do the same steps below on both servers
+Since you have two new servers, you need to connect the arch linux with ssh key
+
+```bash
+ssh -i .ssh/<ssh-key-file> arch@your-droplets-ip-address
+```  
+
+Download the needed packages
+```bash
+sudo pacman -Syu
+sudo pacman -S bash-completion git less man-db neovim tree
+```
+
+After the steps above, do the same steps below on both servers
 
 ```bash
 sudo useradd -r -m -d /var/lib/webgen -s /usr/bin/nologin webgen
