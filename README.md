@@ -43,7 +43,12 @@ sudo useradd -r -m -d /var/lib/webgen -s /usr/bin/nologin webgen
 sudo mkdir -p /var/lib/webgen/bin /var/lib/webgen/HTML /var/lib/webgen/documents
 # making three directories same as the provided directory structure
 # -p: pass to make the directory if the directory already exists
+
+sudo chown -R webgen:webgen /var/lib/webgen
+# change the directory owner and group to webgen
+# -R: operate on files and directories recursively
 ```
+
 In /var/lib/webgen directory, you need to make some files
 
 ```bash
@@ -55,18 +60,15 @@ sudo touch /var/lib/webgen/documents/<file-name2>
 ```
 
 After you did the steps above, the webgen directory structure with tree command should be the same below
+
 ![webgen directory structure](assets/webgen-structure.png)
 
 ### Set up the service and timer files
 
-
-sudo nvim /etc/systemd/system/generate-index.service
-sudo nvim /etc/systemd/system/generate-index.timer
-# open the file with text editor and insert the contents
-
-sudo chown -R webgen:webgen /var/lib/webgen
-# change the directory owner and group to webgen
-# -R: operate on files and directories recursively
+```bash
+sudo touch /etc/systemd/system/generate-index.service
+sudo touch /etc/systemd/system/generate-index.timer
+# making the empty files
 ```
 
 ### Set up nginx
@@ -88,25 +90,48 @@ In the webgen.conf file, you need to add the text below
 ```bash
 server {
 	listen 80;
-    	listen [::]:80;
     
-    	server_name _;
+    server_name _;
     
-    	root /var/lib/webgen/HTML;
-    	index index.html;
+    root /var/lib/webgen/HTML;
+    index index.html;
 
-		location / {
-        	try_files $uri $uri/ =404;
-    	}
+	location / {
+		try_files $uri $uri/ =404;
+	}
+
+	location /documents {
+		root /var/lib/webgen;
+		autoindex on; 
+		autoindex_exact_size off;
+		autoindex_localtime on;
+	}
+    # error_page sections don't have to be here
+    # it can be in nginx.conf http block
+	error_page 404 /404.html;
+	location = /404.html {
+		root /usr/share/nginx/html;
+	}
+
+	error_page 500 502 503 504 /50x.html;
+	location = /50x.html {
+		root /usr/share/nginx/html;
+	}
 }
 ```
-
-Check the main nginx.conf file
+Since we separates the server block section into /etc/nginx/sites-available/webgen.conf,
+you needto check the main nginx.conf file
 
 ```bash
 include /etc/nginx/sites-enabled/webgen.conf;
 # if it's not there, add it to nginx.conf
+# make sure this command line should be in http block section
+# server block section always be in http block section
+# webgen.conf has server block content, so it should in http block
+# we made the webgen.conf in sites-available dir, but we also made symlink in sites-enabled dir
+# so it should be /etc/nginx/sites-enabled/webgen.conf
 ```
+
 ```bash
 sudo nginx -t # test the configuration
 sudo systemctl start nginx # start nginx
