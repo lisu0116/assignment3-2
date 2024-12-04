@@ -119,8 +119,8 @@ server {
 	}
 }
 ```
-Since we separates the server block section into /etc/nginx/sites-available/webgen.conf,
-you needto check the main nginx.conf file
+Since we separates the server block section into /etc/nginx/sites-available/webgen.conf,  
+you need to check the main nginx.conf file
 
 ```bash
 include /etc/nginx/sites-enabled/webgen.conf;
@@ -128,9 +128,9 @@ include /etc/nginx/sites-enabled/webgen.conf;
 # make sure this command line should be in http block section
 ```
 
-Server block section always be in nginx.conf http block section 
-Webgen.conf has server block content, so it should in http block
-We made the webgen.conf in sites-available dir, but we also made symlink in sites-enabled dir
+Server block section always be in nginx.conf http block section  
+Webgen.conf has server block content, so it should in http block  
+We made the webgen.conf in sites-available dir, but we also made symlink in sites-enabled dir  
 So it should be /etc/nginx/sites-enabled/webgen.conf
 
 ```bash
